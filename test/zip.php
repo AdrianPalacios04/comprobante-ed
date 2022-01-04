@@ -4,9 +4,8 @@ $filename = "C:/xampp/htdocs/comprobante/archivos/R20514293385-1-F001-0002005.zi
 
 $za = new ZipArchive();
 
-$za->open("$filename");
-for ($i=0; $i<$za->numFiles;$i++) {
-    echo "index: $i\n";
-    print_r($za->statIndex($i));
-}
+ $open = $za->open("$filename");
+$open_entry = $za->zip_entry_open("$open");
+print_r($open_entry);
+
 ?>

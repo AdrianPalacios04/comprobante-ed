@@ -62,6 +62,7 @@ https://stackoverflow.com/questions/3202203/finding-a-file-with-a-specific-name-
 
 https://stackoverflow.com/questions/37094630/how-to-unzip-xml-file-using-php
 
+https://www.w3schools.com/php/func_zip_entry_open.asp
 ------------------------------------------------------------------------------------------------
 
 ESTRUCTURA DE LA DB
