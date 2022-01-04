@@ -1,0 +1,100 @@
+SUNAT
+
+https://github.com/JossMP/sunatphp
+https://ww1.sunat.gob.pe/ol-ti-itconsultaunificadalibre/consultaUnificadaLibre/consulta
+https://ww3.sunat.gob.pe/ol-ti-itconsvalicpe/ConsValiCpe.htm
+-----------------------------------------------------------------------------------------
+AJAX TABLA
+https://github.com/didesweb/mostrar-tablas-ajax
+-----------------------------------------------------------------------
+busqueda de archivo - PHP
+
+https://stackoverflow.com/questions/3686177/php-to-search-within-txt-file-and-echo-the-whole-line
+--------------------------------------------------------------------------------------------------
+
+copiar archivos de un servidor a otro
+
+https://chaosrequiem.com/main/migrar-copiar-archivos-de-un-servidor-a-otro/
+https://desarrolloweb.com/articulos/1752.php
+https://www.geeksforgeeks.org/how-to-move-a-file-into-a-different-folder-on-the-server-using-php/
+https://www.it-swarm-es.com/es/php/mover-todos-los-archivos-de-una-carpeta-otra/968304594/
+https://www.daniweb.com/programming/web-development/threads/434660/search-for-a-file-on-a-ftp-server-in-php
+https://pretagteam.com/question/how-to-copy-files-around-ftp-using-php
+https://www.techrepublic.com/article/keep-your-options-open-with-ftp-file-uploads-using-php/
+https://www.sitepoint.com/community/t/scope-of-ftp-put-function-in-php-cant-it-make-transfers-between-two-different-location-on-the-same-server/359641/19
+https://www.youtube.com/watch?v=bW4em9JnCiM
+
+
+
+-------------------------------------------------------------------------------------------------
+
+tiempo de la ejecución de la funcion PHP
+
+https://www.jose-aguilar.com/blog/como-calcular-el-tiempo-de-ejecucion-de-un-proceso-con-php/
+https://www.lawebdelprogramador.com/foros/PHP/1402230-Ejecutar-PHP-un-dia-a-una-hora-concreta.html
+
+
+----------------------------------------------------------------------------------------------
+CRON JOBS
+
+https://www.phpcentral.com/pregunta/428/cron-jobs-desde-php
+
+----------------------------------------------------------------------------------------------
+
+RUTA DEL LA CARPETA DEL HOST
+[36]=> string(87) "drwxr-x--- 4 industri 99 4096 Dec 9 16:37 facturas.industriasdq.com"
+
+----------------------------------------------------------------------------------------------
+
+CHECK FILE FOR FTP
+
+https://stackoverflow.com/questions/4852767/how-can-i-check-if-a-file-exists-on-a-remote-server-using-php
+http://www.expertphp.in/article/how-to-get-file-name-file-size-and-sub-directory-from-given-directory
+
+-----------------------------------------------------------------------------------------------
+
+LEER DATOS DE XML
+https://stackoverflow.com/questions/64038172/reading-nasty-xml-with-php
+https://www.w3schools.com/php/php_xml_dom.asp
+https://donnierock.com/2012/12/17/convertir-una-respuesta-xml-en-un-objeto-de-php/
+https://www.educba.com/php-xml-into-array/?source=leftnav           
+https://stackoverflow.com/questions/3202203/finding-a-file-with-a-specific-name-with-any-extension
+
+https://stackoverflow.com/questions/37094630/how-to-unzip-xml-file-using-php
+
+------------------------------------------------------------------------------------------------
+
+ESTRUCTURA DE LA DB
+
+Create table ELECTRONICA_FACTURACION_WEB
+(
+ID int null,
+RUCEMISOR nvarchar(20) null,
+RUCRECEPTOR nvarchar(20) null,
+TIPODOC nvarchar(50) null,
+SERIE nvarchar(50) null,
+NUMERO nvarchar(20) null,
+RUTA nvarchar(500) null,
+EST_XML nvarchar(1) null,
+fecha date,
+EST_PDF nvarchar(1) null,
+EST_CDR nvarchar(1) null
+)
+
+
+Create table ELECTRONICA_FACTURACION_USUARIOS_WEB
+(
+ID int null,
+RUC nvarchar(20) null,
+USUARIO nvarchar(100) null,
+CLAVE nvarchar(100) null,
+PERFIL nvarchar(100) null
+)
+
+//  print_r($files_on_server);
+    // $file_size = ftp_size($ftp_connection,$remote_server_dir."/".$files[$i]);
+    // if ($file_size != -1) {
+    //     echo "tamaño $files[$i] de bytes $file_size <br/>";
+    // }else{
+    //     echo "no se obtuvo el tamaño";
+    // }

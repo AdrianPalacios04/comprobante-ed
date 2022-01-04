@@ -1,0 +1,162 @@
+PARA BUSCAR POR UNO SOLO ARCHIVO
+
+// $file = "file.txt";
+// $check_exists =  $remote_server_dir."/".$file;
+// $result = in_array($check_exists,$files_on_server);
+// var_dump($result);
+// if (in_array($check_exists,$files_on_server)) {
+//     echo "Si existe";
+// }else{
+//     echo "No existe";
+// }
+// print_r($files_on_server);
+// print_r($files);
+
+---------------------------------------------------------------
+PARA SUBIR ARCHIVOS FTP
+// for ($i=0; $i <count($files) ; $i++) { 
+//     $files_on_server = clean_ftp_nlist($ftp_connection,$remote_server_dir);
+    
+//     if (!in_array("$remote_server_dir/$files[$i]",$files_on_server)) {
+//          if (ftp_put($ftp_connection,"$remote_server_dir/$files[$i]","$local_dir/$files[$i]",FTP_BINARY)) {
+//              echo "Successfully uploaded $files[$i] <br/>";
+//          } else {
+//              echo "Problem has upload <br/>";
+//          }
+//     } else {
+//         echo "$remote_server_dir/$files[$i] exists! <br/>";
+//     } 
+// }
+
+-----------------------------------------------------------------
+CUENTAS DE FTP
+
+// $ftp_host = "exceldata.pe";
+// $ftp_user = "edsol114";
+// $ftp_pass = "UJfds789skdfkas34";
+
+// $ftp_host = 'industriasdq.com'; 
+// $ftp_user = 'industri'; 
+// $ftp_pass = 'upqXIoWGkyFH'; 
+--------------------------------------------------------------------
+PARA EL TAMAÑO DE LOS ARCHIVOS
+  $file_x_size = ftp_size($ftp_connection,"$remote_server_dir/$files[$i]");
+
+        if ($file_x_size != -1) {
+            echo "tamaño de $files[$i] es $file_x_size bytes";
+        } else {
+            echo "tamaño de $files[$i] es $file_x_size bytes";
+        }
+
+----------------------------------------------------------------
+SQL PARA GUARDAR LAS RUTAS
+ // $find_file = mysqli_query($con,"SELECT CONCAT(ruc,'-',tipodoc,'-',serie,'-',numero) 
+FROM electronica_facturacion_web 
+ // WHERE CONCAT(ruc,'-',tipodoc,'-',serie,'-',numero) = '$filename'");
+ // $find_file = mysqli_query($con,"SELECT CONCAT(ruc,'-',tipodoc,'-',serie,'-',numero) 
+FROM electronica_facturacion_web");
+
+
+if (!$find_file) {
+            echo $con->errorMsg();
+        }else{
+             while($row = mysqli_fetch_assoc($find_file)){
+               $update_ruta = mysqli_query($con,"UPDATE electronica_facturacion_web SET ruta = '$filename' WHERE CONCAT(ruc,'-',tipodoc,'-',serie,'-',numero) = '$filename'");
+            }
+
+
+------------------------------------------------------------------
+COMPLETO 
+<?php
+
+include_once "model/conexion.php";
+//conexion ftp
+$ftp_host = 'sifsistemas.com'; 
+$ftp_user = 'upncsiol'; 
+$ftp_pass = '3usN363qQNEi'; 
+// funcion para array de las carpetas local
+function clean_scandir($dir)
+{
+    return array_values(array_diff(scandir($dir),array('..','.')));
+}
+// funcion para el array de las carpeta remota FTP
+function clean_ftp_nlist($ftp_connection,$server_dir)
+{
+    $files_on_server = ftp_nlist($ftp_connection,$server_dir);
+    return array_values(array_diff($files_on_server,array('.','..')));
+}
+// funcion para sacar el tamaño de las archivos local
+
+$ftp_connection = ftp_connect($ftp_host) or die ("Couldn't connect to $ftp_host"); 
+ftp_login($ftp_connection,$ftp_user,$ftp_pass) or die("Couldn't login to ftp server");
+ftp_pasv($ftp_connection,true);
+
+$local_dir = "C:/xampp/htdocs/comprobante/archivos/";
+$remote_server_dir = "/sifsistemas.com/piolito/dataprueba"; // problema de la ruta
+// $sql = mysqli_query($con,"SELECT * FROM configuracion");
+
+//  foreach ($sql as $rows) {
+// $files = clean_scandir($rows['ruta_nombre']);
+    $files = clean_scandir($local_dir);
+    for ($i=0; $i <count($files) ; $i++) {   
+        // $fize_file = filesize("$local_dir/$files[$i]");
+        // if ($fize_file > 0) {
+        //     echo "$files[$i] es $fize_file si se puede subir <br>" ;
+        // }else{
+        //     echo "$files[$i] es $fize_file No se puede subir <br>";
+        // }
+            $filename = pathinfo($files[$i],PATHINFO_FILENAME);
+            $files_on_server = clean_ftp_nlist($ftp_connection,$remote_server_dir);
+            if (!in_array("$remote_server_dir/$files[$i]",$files_on_server)) {
+                if (ftp_put($ftp_connection,"$remote_server_dir/$files[$i]","$local_dir/$files[$i]",FTP_BINARY)) {
+                // para guardar la ruta en la BD mientras suba el archivo;
+                    $update_ruta = mysqli_query($con,"UPDATE electronica_facturacion_web SET ruta = '$filename' WHERE 
+                    CONCAT(ruc,'-',tipodoc,'-',serie,'-',numero) = '$filename'");
+                    echo "Successfully uploaded $files[$i] <br/>";
+                } else {
+                    echo "Problem has upload <br/>";
+                }
+            } else {
+                echo "$remote_server_dir/$files[$i] Si existe! <br/>";
+            }    
+        }
+    }
+// }
+ftp_close($ftp_connection);
+?>
+
+------------------------------------------------------------------------------------------
+PARA LA VALIDACION DE XML
+if ($file_extension == "xml" and ) {
+        // $filename = pathinfo($files[$i],PATHINFO_FILENAME);
+        // $first = substr($filename,0,1);
+        // $final = substr($filename,2);
+        
+        //  echo "$first <br>";
+        $xml = simplexml_load_file("$local_dir/$files[$i]");
+//         //Description
+         $description = $xml->xpath("//ar:ApplicationResponse//cac:DocumentResponse//cac:Response//cbc:Description");
+         foreach ((array)$description as $value) continue;
+         echo "$value";
+         
+         //referenceID
+        //  $referenceId = $xml->xpath('//ar:ApplicationResponse//cac:DocumentResponse//cac:Response//cbc:ReferenceID');
+        //  foreach ($referenceId as $key) continue;
+
+        //  //observaciones
+        //  $observations = $xml->xpath('//ar:ApplicationResponse//cbc:Note');
+        //  foreach ($observations as $obs) continue;
+             
+         
+        //  $text_validation = "La Factura numero $key, ha sido aceptada";
+          //var_dump($text_validation);
+        // dd($text_validation);
+            // if ($value ==$text_validation) {
+            //         echo "si se puede subir <br>";
+            //     }else{
+            //         echo "no se puede subir <br>";
+            //     }
+         } 
+        //else {
+        //     // echo "$files[$i] No tiene esa extensión <br>";
+        // }
