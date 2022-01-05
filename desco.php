@@ -27,4 +27,3 @@ for ($i=0; $i <count($files) ; $i++) {
     }   
 }
 ?>
-<h1>hola</h1>

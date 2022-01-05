@@ -1,7 +1,6 @@
 <?php
 include_once 'model/conexion.php';
 include 'controller/funtions.php';
-
 //conexion ftp
 $ftp_host = 'sifsistemas.com'; 
 $ftp_user = 'upncsiol'; 
@@ -35,7 +34,7 @@ for ($i=0; $i <count($files) ; $i++) {
             "$local_dir/$files[$i]",FTP_BINARY)) {
                 $update_ruta = mysqli_query($con,"UPDATE electronica_facturacion_web 
                 SET ruta = '$filename' WHERE 
-                CONCAT(ruc,'-',tipodoc,'-',serie,'-',numero) = '$filename'");
+                CONCAT(ruc,'-0',tipodoc,'-',serie,'-',numero)  = '$filename'");
                 echo "Successfully uploaded $files[$i] <br/>";  
             } else {
                 echo "Problem has upload <br/>";
@@ -58,34 +57,32 @@ for ($i=0; $i <count($files) ; $i++) {
             $final = substr($filename,2);
             // sql para el cambio 
             $update_answer = mysqli_query($con,"UPDATE electronica_facturacion_web SET respuesta_cdr = 1 
-            WHERE CONCAT(ruc,'-',tipodoc,'-',serie,'-',numero) = '$final'");
+            WHERE CONCAT(ruc,'-0',tipodoc,'-',serie,'-',numero) = '$final'");
         }
-    } else {
-        // echo "$files[$i] No coinciden con lo requerido <br>";
-    }
-        if ($first != $find_first_name and $file_extension == $find_extension and $fize_file > 0) {
-           
-        $xml2 = simplexml_load_file("$local_dir/$files[$i]",null,LIBXML_NOCDATA);
-        //fecha de emision
-        $issueDate = $xml2->xpath('cbc:IssueDate');
-        foreach ($issueDate as $date) continue;
-        // echo $date;
-         // razon social
-        $bussName = $xml2->xpath(
-            "cac:AccountingCustomerParty//cac:Party//cac:PartyLegalEntity//cbc:RegistrationName");
-        foreach ($bussName as $buss) continue;
-            // print_r($bussName);
+    } else {}
+        // echo "$files[$i] No coinciden con lo requerido <br>";}
+    if ($first != $find_first_name and $file_extension == $find_extension and $fize_file > 0) {
+        
+    $xml2 = simplexml_load_file("$local_dir/$files[$i]",null,LIBXML_NOCDATA);
+    //fecha de emision
+    $issueDate = $xml2->xpath('cbc:IssueDate');
+    foreach ($issueDate as $date) continue;
+    
+    $bussName = $xml2->xpath(
+        "cac:AccountingCustomerParty//cac:Party//cac:PartyLegalEntity//cbc:RegistrationName");
+    foreach ($bussName as $buss) continue;
+        // print_r($bussName);
 
-       // total 
-        $amount = $xml2->xpath("cac:LegalMonetaryTotal//cbc:PayableAmount");
-        foreach ($amount as $amo) continue;
+    // total 
+    $amount = $xml2->xpath("cac:LegalMonetaryTotal//cbc:PayableAmount");
+    foreach ($amount as $amo) continue;
     //     // capturar el nombre    
-        $final2 = substr($filename,0);
-       //sentencia para guardar los datos
-        $add_data = mysqli_query($con,"UPDATE electronica_facturacion_web 
-        SET razon_social ='$buss',fecha_emision='$date',total ='$amo' 
-        WHERE CONCAT(ruc,'-',tipodoc,'-',serie,'-',numero) = '$final2'");
-         echo "se guardo correctamente";
+    $final2 = substr($filename,0);
+    //sentencia para guardar los datos
+    $add_data = mysqli_query($con,"UPDATE electronica_facturacion_web 
+    SET razon_social ='$buss',fecha_emision='$date',total ='$amo' 
+    WHERE CONCAT(ruc,'-0',tipodoc,'-',serie,'-',numero) = '$final2'");
+        echo "se guardo correctamente";
     } else {
         // echo "No se encontro";
     }   
