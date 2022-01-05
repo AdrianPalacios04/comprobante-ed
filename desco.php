@@ -23,7 +23,7 @@ for ($i=0; $i <count($files) ; $i++) {
             echo 'failed';
         }
     } else {
-        echo "No se encontro";
+        // echo "No se encontro";
     }   
 }
 ?>

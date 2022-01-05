@@ -1,13 +1,13 @@
 <?php 
-    // $servername = "sifsistemas.com";
-    // $username = "upncsiol_factura";
-    // $password = 'DLOoAYDQ1Iao';
-    // $db = "upncsiol_factura";
+    $servername = "sifsistemas.com";
+    $username = "upncsiol_factura";
+    $password = 'DLOoAYDQ1Iao';
+    $db = "upncsiol_factura";
 
-    $servername = "localhost";
-    $username = "root";
-    $password = '';
-    $db = "comprobante";
+    // $servername = "localhost";
+    // $username = "root";
+    // $password = '';
+    // $db = "comprobante";
 
     
     // Create connection

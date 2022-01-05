@@ -28,41 +28,41 @@ for ($i=0; $i <count($files) ; $i++) {
     // lista de archivos en el servidor ftp
     $files_on_server = clean_ftp_nlist($ftp_connection,$remote_server_dir);
     // para subir los archivos a ftp
-    // if($fize_file>0){
-    //     // echo "$files[$i] <br>";
-    //     if (!in_array("$remote_server_dir/$files[$i]",$files_on_server)) {
-    //         if (ftp_put($ftp_connection,"$remote_server_dir/$files[$i]",
-    //         "$local_dir/$files[$i]",FTP_BINARY)) {
-    //             $update_ruta = mysqli_query($con,"UPDATE electronica_facturacion_web 
-    //             SET ruta = '$filename' WHERE 
-    //             CONCAT(ruc,'-',tipodoc,'-',serie,'-',numero) = '$filename'");
-    //             echo "Successfully uploaded $files[$i] <br/>";  
-    //         } else {
-    //             echo "Problem has upload <br/>";
-    //         } 
-    //     } else {
-    //         echo "$remote_server_dir/$files[$i] Si existe! <br/>";
-    //     }
-    // }
-    // if ($first == $find_first_name and $file_extension == $find_extension) {
-    //     $xml = simplexml_load_file("$local_dir/$files[$i]");
-    //     $description = $xml->xpath("//ar:ApplicationResponse//cac:DocumentResponse//cac:Response//cbc:Description");
-    //     foreach ($description as $value) continue;
-    //     //observaciones
-    //     $referencesID = $xml->xpath('
-    //     //ar:ApplicationResponse//cac:DocumentResponse//cac:Response//cbc:ReferenceID');
-    //     foreach ($referencesID as $key) continue;
-    //     // texto de validacion;     
-    //     $text_validation = "La Factura numero $key, ha sido aceptada";
-    //     if ($value == $text_validation) {
-    //         $final = substr($filename,2);
-    //         // sql para el cambio 
-    //         $update_answer = mysqli_query($con,"UPDATE electronica_facturacion_web SET respuesta_cdr = 1 
-    //         WHERE CONCAT(ruc,'-',tipodoc,'-',serie,'-',numero) = '$final'");
-    //     }
-    // } else {
-    //     // echo "$files[$i] No coinciden con lo requerido <br>";
-    // }
+    if($fize_file>0){
+        // echo "$files[$i] <br>";
+        if (!in_array("$remote_server_dir/$files[$i]",$files_on_server)) {
+            if (ftp_put($ftp_connection,"$remote_server_dir/$files[$i]",
+            "$local_dir/$files[$i]",FTP_BINARY)) {
+                $update_ruta = mysqli_query($con,"UPDATE electronica_facturacion_web 
+                SET ruta = '$filename' WHERE 
+                CONCAT(ruc,'-',tipodoc,'-',serie,'-',numero) = '$filename'");
+                echo "Successfully uploaded $files[$i] <br/>";  
+            } else {
+                echo "Problem has upload <br/>";
+            } 
+        } else {
+            echo "$remote_server_dir/$files[$i] Si existe! <br/>";
+        }
+    }
+    if ($first == $find_first_name and $file_extension == $find_extension) {
+        $xml = simplexml_load_file("$local_dir/$files[$i]");
+        $description = $xml->xpath("//ar:ApplicationResponse//cac:DocumentResponse//cac:Response//cbc:Description");
+        foreach ($description as $value) continue;
+        //observaciones
+        $referencesID = $xml->xpath('
+        //ar:ApplicationResponse//cac:DocumentResponse//cac:Response//cbc:ReferenceID');
+        foreach ($referencesID as $key) continue;
+        // texto de validacion;     
+        $text_validation = "La Factura numero $key, ha sido aceptada";
+        if ($value == $text_validation) {
+            $final = substr($filename,2);
+            // sql para el cambio 
+            $update_answer = mysqli_query($con,"UPDATE electronica_facturacion_web SET respuesta_cdr = 1 
+            WHERE CONCAT(ruc,'-',tipodoc,'-',serie,'-',numero) = '$final'");
+        }
+    } else {
+        // echo "$files[$i] No coinciden con lo requerido <br>";
+    }
         if ($first != $find_first_name and $file_extension == $find_extension and $fize_file > 0) {
            
         $xml2 = simplexml_load_file("$local_dir/$files[$i]",null,LIBXML_NOCDATA);
