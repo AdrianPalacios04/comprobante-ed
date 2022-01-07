@@ -35,7 +35,7 @@ for ($i=0; $i <count($files) ; $i++) {
     // lista de archivos en el servidor ftp
     $files_on_server =ftp_nlist($ftp_connection,$remote_server_dir);
     // print_r($files_on_server);
-    // para subir los archivos a ftp
+    // inicio para subir los archivos a ftp
     if($fize_file>0){
         // echo "$files[$i] <br>";
         if (!in_array("$remote_server_dir/$files[$i]",$files_on_server)) {
@@ -52,6 +52,8 @@ for ($i=0; $i <count($files) ; $i++) {
             echo "$remote_server_dir/$files[$i] Si existe! <br/>";
         }
     }
+    // fin para el envio de los archivos
+    
     if ($first == $find_first_name and $file_extension == $find_extension) {
         $xml = simplexml_load_file("$local_dir/$files[$i]");
         $description = $xml->xpath("//ar:ApplicationResponse//cac:DocumentResponse//cac:Response//cbc:Description");
