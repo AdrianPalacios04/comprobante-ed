@@ -27,7 +27,7 @@
                             $tipodoc = $_POST['tipodoc'];
                             $serie = $_POST['serie'];
                             $numero = $_POST['numero'];
-                            $fecha = $_POST['fecha'];
+                            $fecha_emision = $_POST['fecha_emision'];
                             $sql = mysqli_query($con,"SELECT * FROM tipo_comprobante");
                             while ($row = mysqli_fetch_assoc($sql)){
                         ?>
@@ -49,8 +49,8 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <h6 for="fecha">Fecha</h6>
-                    <input type="date" class="form-control form-control-sm" name="fecha" id="fecha" max="<?php $hoy = date("Y-m-d"); echo $hoy?>" required>
+                    <h6 for="fecha_emision">Fecha</h6>
+                    <input type="date" class="form-control form-control-sm" name="fecha_emision" id="fecha_emision" max="<?php $hoy = date("Y-m-d"); echo $hoy?>" required>
                 </div>
                 <div class="d-grid gap-2 col-3 mx-auto" style="margin-top:10px">
                 <!-- <input type="submit" class="btn btn-primary" name="filter" id="filter" > -->
@@ -63,11 +63,11 @@
                 <?php 
                     if (isset($_POST['filter'])) { 
                         $consulta = mysqli_query($con,"SELECT e.ruc,e.ruccliente,t.nombre_com,
-                        e.serie,e.numero,e.ruta,e.fecha FROM electronica_facturacion_web e 
+                        e.serie,e.numero,e.ruta,e.fecha_emision FROM electronica_facturacion_web e 
                         INNER JOIN tipo_comprobante t ON e.tipodoc = t.id 
                         WHERE e.ruc LIKE '%$ruc%' and e.tipodoc LIKE '%$tipodoc%' 
                         and e.serie LIKE '%$serie%' and 
-                        e.numero LIKE '%$numero%' and e.fecha LIKE '%$fecha%'");
+                        e.numero LIKE '%$numero%' and e.fecha_emision LIKE '%$fecha_emision%'");
                         if (mysqli_num_rows($consulta) == 0) {
                             echo '<div class="alert alert-danger col-md-3" style="margin-top:10px" role="alert">
                             No hay resultado ! </div>';
@@ -92,7 +92,7 @@
                                     <h6 for="">Numero: <?php echo $row['numero'] ?> </h6>
                                 </td>
                                 <td>
-                                    <h6 for="">Fecha: <?php echo $row['fecha'] ?> </h6>
+                                    <h6 for="">Fecha: <?php echo $row['fecha_emision'] ?> </h6>
                                 </td>
                                 <td>
                                     <?php 
@@ -107,12 +107,12 @@
                                     <?php 
                                         $sql = "SELECT * FROM electronica_facturacion_web WHERE ruc='$ruc' 
                                         and tipodoc='$tipodoc' and serie='$serie' and numero='$numero' 
-                                        and fecha='$fecha'";
+                                        and fecha_emision='$fecha_emision'";
                                         $result = mysqli_query($con, $sql);
                                         if(mysqli_num_rows($result) > 0){
-                                            $sql2 = "UPDATE electronica_facturacion_web SET est_pdf= 1
+                                            $sql2 = "UPDATE electronica_facturacion_web SET est_pdf= 1, est_xml = 1
                                                 WHERE ruc='$ruc' and tipodoc='$tipodoc' and serie='$serie' 
-                                                and numero='$numero' and fecha='$fecha' ";
+                                                and numero='$numero' and fecha_emision='$fecha_emision' ";
                                                 mysqli_query($con, $sql2);
                                         }else{
                                             echo "No se encontro";

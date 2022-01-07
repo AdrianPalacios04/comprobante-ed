@@ -14,31 +14,31 @@ ftp_pasv($conn_id, true);
 $local_dir = "C:/xampp/htdocs/comprobante/archivos";
 $files = 'file.txt';
 
-// $remote_server_dir = "facturas.industriasdq.com/carpetaprueba";
-$remote_server_dir = "/facturas.industriasdq.com/carpetaprueba";
+//$remote_server_dir = "facturas.industriasdq.com/carpetaprueba";
+$remote_server_dir = "industriasdq.com";
 
 
 
-$check_exists =  $remote_server_dir."/".$files;
-echo $check_exists;
+// $check_exists =  $remote_server_dir."/".$files;
+// echo $check_exists;
 
     $files_on_server = ftp_nlist($conn_id,$remote_server_dir);
     print_r($files_on_server);
 
-    $file_size = ftp_size($conn_id,$check_exists);
-    // print_r($file_size);
-    if ($file_size != -1) {
-        echo "tamaño $files de bytes $file_size <br/>";
-    } else {
-        echo "no se obtuvo el tamaño";
-    }
+    // $file_size = ftp_size($conn_id,$check_exists);
+    // // print_r($file_size);
+    // if ($file_size != -1) {
+    //     echo "tamaño $files de bytes $file_size <br/>";
+    // } else {
+    //     echo "no se obtuvo el tamaño";
+    // }
     
-    //  print_r($files_on_server);
-    if (in_array($check_exists,$remote_server_dir)) {
-        echo "Si existe!";
-    } else {
-        echo "No existe!";
-    }
+    // //  print_r($files_on_server);
+    // if (in_array($check_exists,$remote_server_dir)) {
+    //     echo "Si existe!";
+    // } else {
+    //     echo "No existe!";
+    // }
     
 //     if (!in_array("$files[$i]",$files_on_server)){
 //         if (ftp_put($conn_id,"$remote_server_dir/$files[$i]",
