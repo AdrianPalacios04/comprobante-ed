@@ -16,7 +16,7 @@
                 <form action="" method="POST">
                 <div class="col-md-3" style="margin-top:30px">
                     <h6 for="ruc">RUC EMISOR</h6>
-                    <input type="text" class="form-control form-control-sm" name="ruc" id="ruc" placeholder="RUC EMISOR" maxlength="11" required>
+                    <input type="number" class="form-control form-control-sm" max="11" name="ruc" id="ruc" placeholder="RUC EMISOR" maxlength="11" required>
                 </div>
                 <div class="col-md-3">
                     <h6 for="tipodoc">Tipo de Comprobante</h6>
@@ -45,7 +45,7 @@
                     
                     <div class="col-sm">
                         <h6 for="numero">Número</h6>
-                        <input type="text" class="form-control form-control-sm" name="numero" id="numero" placeholder="Número" required>
+                        <input type="number" class="form-control form-control-sm" min="7" max="7" name="numero" id="numero" placeholder="Número" required>
                     </div>
                 </div>
                 <div class="col-md-3">

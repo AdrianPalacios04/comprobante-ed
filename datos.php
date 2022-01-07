@@ -1,10 +1,3 @@
-<!DOCTYPE html>
- <html>
- <head>
- <meta charset="utf-8" />
- <title></title>
- </head>
- <body>
 <?php
 
 $currentDateTime = date('Y-m-d H:i:s');
@@ -13,7 +6,8 @@ $currentDateTime = date('Y-m-d H:i:s');
 if (file_exists("1.txt")) 
 {
 	
-    $mysqli = new mysqli("industriasdq.com", "industri_prueba", "LnO0D2Urxdff", "industri_comprobante_prueba");
+    // $mysqli = new mysqli("industriasdq.com", "industri_prueba", "LnO0D2Urxdff", "industri_comprobante_prueba");
+	$mysqli = new mysqli("localhost", "root", "", "comprobante");
 	if ($mysqli->connect_errno) 
 	{
 		echo "Falló la conexión con MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
@@ -45,7 +39,7 @@ if (file_exists("1.txt"))
 			}
 		}
 	}
-	// rename ("1.txt", (string)date('YmdHis') . ".txt");
+	rename ("1.txt", (string)date('YmdHis') . ".txt");
 	fclose($fp);
 				
 	// 	$linea  = "UPDATE sif_act_estado set fechafin = NOW(), estado = 'T' where id = " . (string)$resultadoid;
